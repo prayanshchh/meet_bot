@@ -3,14 +3,6 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 export async function openMeet(driver: WebDriver, meetUrl: string): Promise<boolean> {
   await driver.get(meetUrl);
 
-  // Detect if blocked
-
-
-  try {
-    const popupButton = await driver.wait(until.elementLocated(By.xpath('//span[contains(text(), "Got it")]')), 5000);
-    await popupButton.click();
-  } catch {}
-
   try {
     const nameInput = await driver.wait(until.elementLocated(By.xpath('//input[@placeholder="Your name"]')), 10000);
     await nameInput.clear();
@@ -27,9 +19,8 @@ export async function openMeet(driver: WebDriver, meetUrl: string): Promise<bool
           );
         await driver.wait(until.elementIsVisible(cannotJoinHeader), 3000);
         console.log("Bot is blocked from joining.");
-        return false; // blocked
+        return false;
       } catch (e) {
-        // Not blocked
       }
   } catch {
     
