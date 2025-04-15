@@ -7,7 +7,7 @@ function wait(ms: number) {
 }
 
 async function main() {
-  const meetUrl = 'https://meet.google.com/rmk-spqm-cyr';
+  const meetUrl = 'meetlink';
   let joined = false;
   const driver = await getDriver();
 
