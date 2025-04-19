@@ -2,7 +2,7 @@ import whisper
 import tempfile
 import os
 
-def transcribe_audio_bytes(audio_bytes: bytes, model_size: str = "turbo") -> str:
+def transcribe_audio_bytes(audio_bytes: bytes, model_size: str = "small") -> str:
     model = whisper.load_model(model_size)
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio_file:

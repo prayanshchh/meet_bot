@@ -1,6 +1,9 @@
 import boto3
 import os
 from botocore.client import Config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 MINIO_ACCESS_KEY = os.getenv('MINIO_ACCESS_KEY')
 MINIO_SECRET_KEY = os.getenv('MINIO_SECRET_KEY')
@@ -13,7 +16,7 @@ if not MINIO_ACCESS_KEY or not MINIO_SECRET_KEY or not MINIO_ENDPOINT or not MIN
 
 s3 = boto3.client(
     's3',
-    enpoint_url=MINIO_ENDPOINT,
+    endpoint_url=MINIO_ENDPOINT,
     aws_access_key_id = MINIO_ACCESS_KEY,
     aws_secret_access_key = MINIO_SECRET_KEY,
     config = Config(signature_version='s3v4'),
