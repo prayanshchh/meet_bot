@@ -5,10 +5,7 @@ from utilities.summary import generate_summary;
 import os
 
 file = fetch_file_from_minio("audio_sample.mp3", os.getenv('MINIO_BUCKET'))
-print("I am file: ", file)
 
 text = transcribe_audio_bytes(file)
-print("generated text: ", text)
 
 summary = generate_summary(text)
-print("summary: ", summary)
