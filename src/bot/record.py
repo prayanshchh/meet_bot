@@ -2,10 +2,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utilities.generatePresignedURL import generate_upload_url;
+from utilities.minio.generateUploadURL import generate_upload_url
 from selenium.webdriver.support.ui import WebDriverWait
 
-def   start_screenshare(driver):
+def start_screenshare(driver):
     import time
 
     file_name = f"meeting-{int(time.time())}.webm"
@@ -22,8 +22,6 @@ def   start_screenshare(driver):
     input_box = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//textarea[@aria-label="Send a message" or @placeholder="Send a message"]')))
     input_box.send_keys(meesage + Keys.RETURN)
     chat_button.click()
-
-    print("I am here")
 
     driver.execute_script(f"""
     function startRecording(stream) {{
@@ -99,7 +97,6 @@ def   start_screenshare(driver):
       dest.stream.getTracks().forEach(track => track.stop());
     }});
   """)
-    print("Recording started")
     WebDriverWait(driver, 120).until(
     lambda d: d.execute_script("return window.recordingFinished === true")
     )

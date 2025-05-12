@@ -13,12 +13,12 @@ def get_driver():
     })
 
     options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument("--use-fake-ui-for-media-stream")
     options.add_argument("--window-size=1080,720")
     options.add_argument('--auto-select-desktop-capture-source=[RECORD]')
     options.add_argument('--enable-usermedia-screen-capturing')
     options.add_argument('--auto-select-tab-capture-source-by-title=Meet')
     options.add_argument('--allow-running-insecure-content')
+    
 
     driver = webdriver.Chrome(options=options)
     return driver

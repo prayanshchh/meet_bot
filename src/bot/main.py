@@ -1,7 +1,7 @@
 import time
-from driver import get_driver
-from meeting import open_meet
-from record import start_screenshare
+from bot.driver import get_driver
+from bot.meeting import open_meet
+from bot.record import start_screenshare
 
 def wait(ms):
     time.sleep(ms / 1000)
