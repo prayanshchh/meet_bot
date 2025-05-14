@@ -2,14 +2,52 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utilities.minio.generateUploadURL import generate_upload_url
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import ElementNotInteractableException, TimeoutException, NoSuchElementException, InvalidSessionIdException
+from threading import Thread
 
-def start_screenshare(driver):
-    import time
+from app.utilities.minio.generatePresignedURL import generate_upload_url
+from app.db.database import SessionLocal
+from app.db.models import Recording
+import uuid
+from datetime import datetime
+import time
+
+def watch_and_click_got_it(driver):
+    while True:
+        try:
+            button = driver.find_element(By.XPATH, '//button[.//span[text()="Got it"]]')
+            if button.is_displayed():
+                button.click()
+                print("'Got it' button clicked.")
+                return
+        except (NoSuchElementException, InvalidSessionIdException):
+            pass
+        except ElementNotInteractableException:
+            pass
+        time.sleep(2)
+
+def watch_input_box(driver):
+    while True:
+        try:
+            input_box = driver.find_element(By.XPATH, '//span[contains(@jsname, "S5tZuc")]//svg')
+            if input_box.is_displayed():
+                input_box.click()
+                print("'input_box' button clicked.")
+                return
+        except (NoSuchElementException, InvalidSessionIdException):
+            pass
+        except ElementNotInteractableException:
+            pass
+        time.sleep(2)
+
+
+
+def start_screenshare(driver, meet_id):
+    Thread(target=watch_and_click_got_it, args=(driver,), daemon=True).start()
+    Thread(target=watch_input_box, args=(driver,), daemon=True).start()
 
     file_name = f"meeting-{int(time.time())}.webm"
-    signed_url = generate_upload_url(file_name)
+    put_signed_url = generate_upload_url(file_name)
     meesage = """Hello everyone!
     I’m MeetBot, your AI-powered assistant for this session. I’ll be silently recording the meeting and capturing key points to generate accurate notes and summaries for everyone afterward. My goal is to help you stay focused and reduce the need for manual note-taking.
 
@@ -77,7 +115,7 @@ def start_screenshare(driver):
       ]);
       let recordedBlob = new Blob(videoChunks, {{ type: "video/webm" }});
 
-      fetch("{signed_url}", {{
+      fetch("{put_signed_url}", {{
         method: "PUT",
         headers: {{
           'Content-Type': "video/webm"
@@ -100,3 +138,18 @@ def start_screenshare(driver):
     WebDriverWait(driver, 120).until(
     lambda d: d.execute_script("return window.recordingFinished === true")
     )
+
+    driver.close()
+
+    db = SessionLocal()
+
+    recording = Recording(
+        id= uuid.uuid4(),
+        meeting_id= meet_id,
+        file_name=file_name,
+        uploaded_at= datetime.utcnow()
+    )
+    db.add(recording)
+    db.commit()
+    
+
