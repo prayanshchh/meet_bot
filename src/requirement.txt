@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+alembic
+authlib
+python-jose[cryptography]
+boto3
+botocore
+python-dotenv
+pydantic
+selenium
