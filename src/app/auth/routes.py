@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
-from app.auth.oauth import oauth
-from app.auth.jwt import create_access_token
-from app.auth.cookie import set_access_token_cookie, clear_access_token
-from app.db.database import SessionLocal
-from app.db.models import User
+from fastapi.responses import JSONResponse, RedirectResponse
+from auth.oauth import oauth
+from auth.jwt import create_access_token
+from auth.cookie import set_access_token_cookie, clear_access_token
+from db.database import SessionLocal
+from db.models import User
 import uuid
 
 router = APIRouter()
 
-async def handle_oauth_user(email: str, name: str, provider: str):
+async def handle_oauth_user(email: str, name: str, provider: str, redirect_response):
     db = SessionLocal()
     existing = db.query(User).filter_by(email=email).first()
     if not existing:
@@ -23,9 +23,8 @@ async def handle_oauth_user(email: str, name: str, provider: str):
         "provider": provider
     })
 
-    response = JSONResponse(content={"message": f"Login with {provider} successful"})
-    set_access_token_cookie(response, jwt_token)
-    return response
+    set_access_token_cookie(redirect_response, jwt_token)
+    return redirect_response
 
 @router.get("/auth/login/google")
 async def login_google(request: Request):
@@ -43,7 +42,8 @@ async def auth_google_callback(request: Request):
     resp = await oauth.google.get("https://openidconnect.googleapis.com/v1/userinfo", token=token)
     user_info = resp.json()
 
-    return await handle_oauth_user(email= user_info['email'], name=user_info.get('name'), provider='google')
+    redirect_response = RedirectResponse("http://127.0.0.1:5173/")
+    return await handle_oauth_user(email= user_info['email'], name=user_info.get('name'), provider='google', redirect_response=redirect_response)
 
 @router.get("/auth/callback/github")
 async def auth_github_callback(request: Request):
@@ -53,7 +53,8 @@ async def auth_github_callback(request: Request):
     email_resp = await oauth.github.get('user/emails', token=token)
     primary_email = next((e['email'] for e in email_resp.json() if e['primary']), profile['email'])
 
-    return await handle_oauth_user(email=primary_email, name=profile.get('name'), provider='github')
+    redirect_response = RedirectResponse("http://127.0.0.1:5173/")
+    return await handle_oauth_user(email=primary_email, name=profile.get('name'), provider='github', redirect_response=redirect_response)
 
 @router.get("/logout")
 async def logout():

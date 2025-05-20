@@ -5,9 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementNotInteractableException, TimeoutException, NoSuchElementException, InvalidSessionIdException
 from threading import Thread
 
-from app.utilities.minio.generatePresignedURL import generate_upload_url
-from app.db.database import SessionLocal
-from app.db.models import Recording
+from utilities.minio.generatePresignedURL import generate_upload_url
+from db.database import SessionLocal
+from db.models import Recording
 import uuid
 from datetime import datetime
 import time
@@ -61,6 +61,8 @@ def start_screenshare(driver, meet_id):
     input_box.send_keys(meesage + Keys.RETURN)
     chat_button.click()
 
+    print("executing script")
+
     driver.execute_script(f"""
     function startRecording(stream) {{
       let recorder = new MediaRecorder(stream);
@@ -76,6 +78,7 @@ def start_screenshare(driver, meet_id):
 
       let observer = new MutationObserver(() => {{
         const endl = document.querySelector('h1[jsname="r4nke"]');
+        console.log("I am here", endl.textContent)
         if (endl && endl.textContent.includes("Your host ended the meeting for everyone")) {{
           if (recorder.state === "recording") recorder.stop();
           observer.disconnect();
@@ -138,6 +141,7 @@ def start_screenshare(driver, meet_id):
     WebDriverWait(driver, 120).until(
     lambda d: d.execute_script("return window.recordingFinished === true")
     )
+    print(" I am here")
 
     driver.close()
 
@@ -152,4 +156,3 @@ def start_screenshare(driver, meet_id):
     db.add(recording)
     db.commit()
     
-

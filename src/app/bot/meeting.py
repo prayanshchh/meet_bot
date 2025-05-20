@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def open_meet(driver, meet_url: str) -> bool:
   driver.get(meet_url)
+  print(driver, "I am at meet")
   wait = WebDriverWait(driver, 10)
 
   try:
@@ -15,7 +16,7 @@ def open_meet(driver, meet_url: str) -> bool:
   try:
     name_input = wait.until(EC.presence_of_element_located((By.XPATH, '//input[@placeholder="Your name"]')))
     name_input.clear()
-    name_input.send_keys("Meet Bot")
+    name_input.send_keys("meetbot")
   except:
     pass
   

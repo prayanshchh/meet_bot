@@ -1,5 +1,9 @@
 from selenium import webdriver;
+from selenium.webdriver.remote.remote_connection import RemoteConnection
 from selenium.webdriver.chrome.options import Options;
+import os
+
+GRID_URL = os.getenv("GRID_URL")
 
 def get_driver():
     options = Options()
@@ -19,6 +23,6 @@ def get_driver():
     options.add_argument('--auto-select-tab-capture-source-by-title=Meet')
     options.add_argument('--allow-running-insecure-content')
     
-
     driver = webdriver.Chrome(options=options)
+
     return driver
