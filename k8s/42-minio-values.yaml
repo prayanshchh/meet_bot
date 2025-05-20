@@ -1,0 +1,10 @@
+mode: standalone
+
+replicaCount: 1
+
+auth:
+  rootUser: minioadmin
+  rootPassword: minioadmin123
+
+persistence:
+  enabled: false

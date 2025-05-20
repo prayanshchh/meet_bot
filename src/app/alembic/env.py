@@ -11,8 +11,6 @@ from alembic import context
 
 load_dotenv()
 
-DATABASE_URL = DATABASE_URL.replace("db", "localhost")
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 

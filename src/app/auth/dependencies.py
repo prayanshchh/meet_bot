@@ -1,8 +1,8 @@
 from fastapi import Request, HTTPException, status, Depends
 from jose import JWTError
-from app.auth.jwt import decode_access_token
-from app.db.database import SessionLocal
-from app.db.models import User
+from auth.jwt import decode_access_token
+from db.database import SessionLocal
+from db.models import User
 
 def get_current_user(request: Request) -> User:
     token = request.cookies.get("access_token")

@@ -1,0 +1,8 @@
+auth:
+  username: postgres
+  password: postgres
+  database: meetbot
+
+primary:
+  persistence:
+    enabled: false #true in production

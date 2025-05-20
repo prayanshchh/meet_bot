@@ -1,0 +1,32 @@
+# Web framework and ASGI server
+fastapi
+uvicorn[standard]
+
+# Database and ORM
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Auth and JWT
+authlib
+python-jose[cryptography]
+
+# Environment variables
+python-dotenv
+
+# AWS S3 / MinIO
+boto3
+botocore
+
+# Data validation
+pydantic
+
+# Browser automation
+selenium
+
+# Task queue
+celery
+redis
+
+httpx
+itsdangerous
