@@ -10,5 +10,5 @@ def get_me(user: User = Depends(get_current_user)):
         "id": str(user.id),
         "email": user.email,
         "name": user.name,
-        "provider": user.oauth_provider
+        "provider": user.oauth_provider,
     }

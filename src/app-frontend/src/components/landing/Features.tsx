@@ -37,12 +37,12 @@ function FeatureCard({ title, description, icon, delay }: FeatureCardProps) {
   }, [delay]);
 
   return (
-    <div 
+    <div
       ref={ref}
       className={cn(
         "bg-card border rounded-xl p-6 transition-all duration-700 transform group",
-        isVisible 
-          ? "opacity-100 translate-y-0" 
+        isVisible
+          ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-8"
       )}
     >
@@ -107,9 +107,9 @@ export default function Features() {
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-background/80 -z-10" />
       <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
-      
+
       <div className="container px-50 md:px-6">
-        <div 
+        <div
           ref={headingRef}
           className={cn(
             "text-center max-w-3xl mx-auto mb-16 transition-all duration-700",
@@ -123,7 +123,7 @@ export default function Features() {
             MeetBot combines powerful recording technology with advanced AI to transform your meeting experience.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <FeatureCard

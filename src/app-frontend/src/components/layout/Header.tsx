@@ -24,8 +24,8 @@ const {user, isLoggedIn, logout} = useAuth();
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 py-8 transition-all duration-300 px-4 sm:px-6 lg:px-8',
-        scrollY > 10 
-          ? 'bg-background/200 backdrop-blur-md shadow-sm' 
+        scrollY > 10
+          ? 'bg-background/200 backdrop-blur-md shadow-sm'
           : 'bg-transparent'
       )}
     >
@@ -108,8 +108,8 @@ const {user, isLoggedIn, logout} = useAuth();
     )}
   </div>
 )}
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="icon"
               className="md:hidden"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -124,29 +124,29 @@ const {user, isLoggedIn, logout} = useAuth();
       {menuOpen && isLandingPage && (
         <div className="md:hidden bg-background/95 backdrop-blur-lg border-b">
           <nav className="px-4 py-6 flex flex-col space-y-4 max-w-screen-sm mx-auto">
-            <a 
-              href="#features" 
+            <a
+              href="#features"
               className="text-sm font-medium py-2 transition-colors hover:text-primary"
               onClick={() => setMenuOpen(false)}
             >
               Features
             </a>
-            <a 
-              href="#how-it-works" 
+            <a
+              href="#how-it-works"
               className="text-sm font-medium py-2 transition-colors hover:text-primary"
               onClick={() => setMenuOpen(false)}
             >
               How It Works
             </a>
-            <a 
-              href="#dashboard" 
+            <a
+              href="#dashboard"
               className="text-sm font-medium py-2 transition-colors hover:text-primary"
               onClick={() => setMenuOpen(false)}
             >
               Dashboard
             </a>
-            <a 
-              href="#pricing" 
+            <a
+              href="#pricing"
               className="text-sm font-medium py-2 transition-colors hover:text-primary"
               onClick={() => setMenuOpen(false)}
             >
