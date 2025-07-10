@@ -30,7 +30,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h3 className="font-medium mb-4">Product</h3>
             <ul className="space-y-2">
@@ -56,7 +56,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="font-medium mb-4">Company</h3>
             <ul className="space-y-2">
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="font-medium mb-4">Resources</h3>
             <ul className="space-y-2">
@@ -109,7 +109,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
             © 2025 MeetBot. All rights reserved.

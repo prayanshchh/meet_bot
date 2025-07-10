@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { 
-  Table, ChevronRight, Download, Share2, 
-  BarChart, PieChart, LineChart, Presentation 
+import {
+  Table, ChevronRight, Download, Share2,
+  BarChart, PieChart, LineChart, Presentation
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,9 +35,9 @@ export default function Dashboard() {
     <section id="dashboard" className="px-50 py-20 relative overflow-hidden" ref={sectionRef}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background -z-10" />
-      
+
       <div className="container px-4 md:px-6">
-        <div 
+        <div
           className={cn(
             "text-center max-w-3xl mx-auto mb-16 transition-all duration-700",
             isVisible ? "opacity-100 transform-none" : "opacity-0 translate-y-8"
@@ -51,7 +51,7 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <div 
+        <div
           className={cn(
             "relative max-w-5xl mx-auto transition-all duration-1000",
             isVisible ? "opacity-100 transform-none" : "opacity-0 translate-y-16"
@@ -145,7 +145,7 @@ export default function Dashboard() {
                       hasSummary: true,
                     },
                   ].map((meeting, i) => (
-                    <div 
+                    <div
                       key={i}
                       className={cn(
                         "border rounded-lg p-4 transition-all hover:border-primary/30 hover:bg-primary/5",
@@ -196,7 +196,7 @@ export default function Dashboard() {
 
                 {/* Statistics */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                  <div 
+                  <div
                     className={cn(
                       "bg-muted/20 rounded-lg p-4 transition-all",
                       isVisible ? "animate-slide-up delay-400" : "opacity-0"
@@ -206,7 +206,7 @@ export default function Dashboard() {
                     <div className="text-2xl font-semibold">124</div>
                     <div className="text-xs text-primary mt-1">+12% from last month</div>
                   </div>
-                  <div 
+                  <div
                     className={cn(
                       "bg-muted/20 rounded-lg p-4 transition-all",
                       isVisible ? "animate-slide-up delay-500" : "opacity-0"
@@ -216,9 +216,9 @@ export default function Dashboard() {
                     <div className="text-2xl font-semibold">37.5</div>
                     <div className="text-xs text-primary mt-1">+8% from last month</div>
                   </div>
-                  <div 
+                  <div
                     className={cn(
-                      "bg-muted/20 rounded-lg p-4 transition-all", 
+                      "bg-muted/20 rounded-lg p-4 transition-all",
                       isVisible ? "animate-slide-up delay-600" : "opacity-0"
                     )}
                   >
@@ -230,7 +230,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          
+
           {/* Glow effect */}
           <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
         </div>

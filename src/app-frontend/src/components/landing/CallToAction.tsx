@@ -8,7 +8,7 @@ export default function CallToAction() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,9 +34,9 @@ export default function CallToAction() {
     <section id="pricing" className="px-50 py-20 relative" ref={sectionRef}>
       <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent -z-10" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      
+
       <div className="container px-4 md:px-6">
-        <div 
+        <div
           className={cn(
             "max-w-4xl mx-auto rounded-xl border bg-card overflow-hidden shadow-lg transition-all duration-700 transform relative",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -44,7 +44,7 @@ export default function CallToAction() {
         >
           <div className="absolute -top-40 -right-40 h-80 w-80 bg-primary/10 rounded-full blur-3xl opacity-50" />
           <div className="absolute -bottom-40 -left-40 h-80 w-80 bg-secondary/10 rounded-full blur-3xl opacity-50" />
-          
+
           <div className="p-8 md:p-12 relative z-10">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
               <div className="space-y-4 md:w-1/2">
@@ -59,8 +59,8 @@ export default function CallToAction() {
                 <p className="text-muted-foreground md:text-lg">
                   Join thousands of professionals who save time and capture valuable meeting insights with MeetBot.
                 </p>
-                
-                <div 
+
+                <div
                   className={cn(
                     "flex flex-wrap gap-4 transition-opacity duration-700 delay-300",
                     isVisible ? "opacity-100" : "opacity-0"
@@ -86,8 +86,8 @@ export default function CallToAction() {
                   </div>
                 </div>
               </div>
-              
-              <div 
+
+              <div
                 className={cn(
                   "space-y-4 md:w-2/5 transition-all duration-700 delay-500",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -105,7 +105,7 @@ export default function CallToAction() {
                       50% off regular price
                     </div>
                   </div>
-                  
+
                   <form className="space-y-3">
                     <div className="relative">
                       <Input

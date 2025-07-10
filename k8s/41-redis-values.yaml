@@ -1,7 +1,0 @@
-architecture: standalone
-auth:
-  enabled: true
-  password: mysecurepassword
-master:
-  persistence:
-    enabled: false

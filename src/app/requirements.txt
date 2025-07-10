@@ -22,11 +22,21 @@ botocore
 pydantic
 
 # Browser automation
+playwright
 selenium
 
-# Task queue
-celery
-redis
-
+# HTTP client
 httpx
+
+# Security
 itsdangerous
+
+# Form parsing (for FastAPI file uploads)
+python-multipart
+
+# Testing
+pytest
+
+google-auth
+google-auth-oauthlib
+google-api-python-client

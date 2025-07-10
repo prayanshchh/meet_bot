@@ -13,20 +13,20 @@ interface StepProps {
 
 function Step({ number, title, description, icon, isActive, onClick }: StepProps) {
   return (
-    <div 
+    <div
       className={cn(
         "flex items-start gap-4 p-4 rounded-lg cursor-pointer transition-all",
-        isActive 
-          ? "bg-primary/10 border border-primary/20" 
+        isActive
+          ? "bg-primary/10 border border-primary/20"
           : "hover:bg-muted/20"
       )}
       onClick={onClick}
     >
-      <div 
+      <div
         className={cn(
           "h-12 w-12 rounded-full flex items-center justify-center text-white font-bold transition-colors",
-          isActive 
-            ? "bg-primary" 
+          isActive
+            ? "bg-primary"
             : "bg-muted"
         )}
       >
@@ -108,7 +108,7 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="px-50 py-20 bg-muted/5" ref={sectionRef}>
       <div className="container px-4 md:px-6">
-        <div 
+        <div
           className={cn(
             "text-center max-w-3xl mx-auto mb-16 transition-all duration-700",
             isVisible ? "opacity-100 transform-none" : "opacity-0 translate-y-8"
@@ -123,7 +123,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div 
+          <div
             className={cn(
               "space-y-4 transition-all duration-700 delay-300",
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
@@ -142,7 +142,7 @@ export default function HowItWorks() {
             ))}
           </div>
 
-          <div 
+          <div
             className={cn(
               "bg-card border rounded-xl overflow-hidden transition-all duration-700 delay-500 relative",
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
@@ -156,12 +156,12 @@ export default function HowItWorks() {
                     <div className="h-8 w-full bg-primary/20 rounded-md mb-4"></div>
                     <div className="grid grid-cols-7 gap-1">
                       {[...Array(31)].map((_, i) => (
-                        <div 
-                          key={i} 
+                        <div
+                          key={i}
                           className={cn(
                             "aspect-square rounded flex items-center justify-center text-xs border",
-                            i % 3 === 0 
-                              ? "bg-primary/10 border-primary/20" 
+                            i % 3 === 0
+                              ? "bg-primary/10 border-primary/20"
                               : "bg-transparent border-muted"
                           )}
                         >
@@ -240,20 +240,20 @@ export default function HowItWorks() {
                         <Sparkles className="h-4 w-4 text-primary" />
                       </div>
                     </div>
-                    
+
                     <div className="flex-1 space-y-4">
                       <div>
                         <div className="h-6 w-32 bg-primary/20 rounded mb-2"></div>
                         <div className="h-4 w-full bg-muted/30 rounded mb-1"></div>
                         <div className="h-4 w-5/6 bg-muted/30 rounded"></div>
                       </div>
-                      
+
                       <div>
                         <div className="h-6 w-40 bg-primary/20 rounded mb-2"></div>
                         <div className="h-4 w-full bg-muted/30 rounded mb-1"></div>
                         <div className="h-4 w-4/6 bg-muted/30 rounded"></div>
                       </div>
-                      
+
                       <div>
                         <div className="h-6 w-36 bg-primary/20 rounded mb-2"></div>
                         <div className="h-4 w-full bg-muted/30 rounded mb-1"></div>
@@ -261,7 +261,7 @@ export default function HowItWorks() {
                         <div className="h-4 w-3/6 bg-muted/30 rounded"></div>
                       </div>
                     </div>
-                    
+
                     <div className="h-10 w-full bg-primary/10 rounded-lg border border-primary/20 flex items-center justify-between px-4 mt-4">
                       <div className="h-4 w-20 bg-muted rounded"></div>
                       <div className="h-6 w-6 bg-primary rounded animate-pulse"></div>
@@ -270,11 +270,11 @@ export default function HowItWorks() {
                 </div>
               )}
             </div>
-            
+
             {/* Progress indicators */}
             <div className="h-2 w-full bg-muted/20 flex">
               {steps.map((step) => (
-                <div 
+                <div
                   key={step.number}
                   className={cn(
                     "h-full transition-all duration-500",
