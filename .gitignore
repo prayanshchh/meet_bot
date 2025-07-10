@@ -26,3 +26,5 @@ Thumbs.db
 
 .cache/
 huggingface/
+credentials.json
+meetbot_auth.json

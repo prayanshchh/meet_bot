@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from api.routes import me as me_route
-from api.routes import meeting as meet_routes
-from auth import routes as auth_routes
+from app.api.routes import me as me_route
+from app.api.routes import meeting as meet_routes
+from app.auth import routes as auth_routes
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 import os

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, RedirectResponse
-from auth.oauth import oauth
-from auth.jwt import create_access_token
-from auth.cookie import set_access_token_cookie, clear_access_token
-from db.database import SessionLocal
-from db.models import User
-from calendar_webhook import initiate_calendar_watch_db
+from app.auth.oauth import oauth
+from app.auth.jwt import create_access_token
+from app.auth.cookie import set_access_token_cookie, clear_access_token
+from app.db.database import SessionLocal
+from app.db.models import User
+from app.calendar_webhook import initiate_calendar_watch_db
 import os
 import uuid
 from datetime import datetime, timezone

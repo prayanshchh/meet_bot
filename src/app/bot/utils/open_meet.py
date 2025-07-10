@@ -1,8 +1,8 @@
-from utils.click_if_visible import click_if_visible
-from utils.click_join import click_join
-from utils.dismiss_overlays import dismiss_overlays
-from utils.wait_until_joined import wait_until_joined
-from utils.ensure_captions_on import ensure_captions_on
+from app.bot.utils.click_if_visible import click_if_visible
+from app.bot.utils.click_join import click_join
+from app.bot.utils.dismiss_overlays import dismiss_overlays
+from app.bot.utils.wait_until_joined import wait_until_joined
+from app.bot.utils.ensure_captions_on import ensure_captions_on
 
 async def collapse_preview_if_needed(page):
     preview_join = page.get_by_role("button", name="join now", exact=False).nth(1)

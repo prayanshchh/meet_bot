@@ -15,9 +15,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from db.database import SessionLocal
-from db.models import User, Meeting, CalendarChannel, CalendarSyncToken
-from auth.dependencies import get_current_user
+from app.db.database import SessionLocal
+from app.db.models import User, Meeting, CalendarChannel, CalendarSyncToken
+from app.auth.dependencies import get_current_user
 router = APIRouter()
 db = SessionLocal()
 

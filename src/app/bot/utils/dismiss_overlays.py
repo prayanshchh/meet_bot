@@ -1,4 +1,4 @@
-from .click_if_visible import click_if_visible
+from app.bot.utils.click_if_visible import click_if_visible
 
 async def dismiss_overlays(page):
     selectors = [

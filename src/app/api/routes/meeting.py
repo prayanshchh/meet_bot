@@ -1,16 +1,15 @@
 from fastapi import APIRouter, Depends, Body, Query, HTTPException
 from pydantic import BaseModel
-from auth.dependencies import get_current_user
-from db.models import User
-from db.database import SessionLocal
-from db.models import Meeting
-from db.models import User
-from auth.dependencies import get_current_user
+from app.auth.dependencies import get_current_user
+from app.db.models import User
+from app.db.database import SessionLocal
+from app.db.models import Meeting
+from app.db.models import User
 from datetime import datetime
 import uuid
 from sqlalchemy.orm import joinedload
-from utilities.minio.generatePresignedURL import generate_view_url
-from bot.main import main as bot
+from app.utilities.minio.generatePresignedURL import generate_view_url
+from app.bot.main import main as bot
 
 router = APIRouter()
 
@@ -18,7 +17,7 @@ class MeetingCreateRequest(BaseModel):
     meeting_url: str
 
 @router.post("/meet")
-def create_meeting(
+async def create_meeting(
     data: MeetingCreateRequest = Body(...), user: User = Depends(get_current_user)
 ):
     print(" I am hit")
@@ -34,7 +33,7 @@ def create_meeting(
     db.add(meeting)
     db.commit()
 
-    bot(data.meeting_url, meet_id)
+    await bot(data.meeting_url, meet_id)
     return {"message": "Bot is finished with the meeting!"}
 
 

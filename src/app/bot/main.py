@@ -1,10 +1,11 @@
 import asyncio
 from playwright.async_api import async_playwright
-from utils.open_meet import open_meet
-from utils.record_meeting import record_meeting
-from utils.wait_for_xpath import wait_for_text
+from app.bot.utils.open_meet import open_meet
+from app.bot.utils.record_meeting import record_meeting
+from app.bot.utils.wait_for_xpath import wait_for_text
 
 async def main(url, id):
+    print("I am here")
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=True,
@@ -21,6 +22,7 @@ async def main(url, id):
             "storage_state": "meetbot_auth.json",
             "permissions": ["microphone", "camera"]
         }
+        print("browser started")
         context = await browser.new_context(**context_args)
         page = await context.new_page()
         await open_meet(page, url)
