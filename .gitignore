@@ -28,3 +28,4 @@ Thumbs.db
 huggingface/
 credentials.json
 meetbot_auth.json
+token.json

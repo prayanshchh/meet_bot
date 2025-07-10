@@ -37,8 +37,8 @@ services:
       dockerfile: Dockerfile
     container_name: meetbot-bot
     volumes:
-      - ./src/app:/app
-    working_dir: /app
+      - ./src:/app/src
+    working_dir: /app/src
     ports:
       - "8000:8000"
     environment:
@@ -60,6 +60,9 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - GOOGLE_WEBHOOK_CLIENT_TOKEN=${GOOGLE_WEBHOOK_CLIENT_TOKEN}
       - WEBHOOK_PUBLIC_URL=${WEBHOOK_PUBLIC_URL}
+    depends_on:
+      - db
+      - minio
 volumes:
   minio_data:
   pgdata:
