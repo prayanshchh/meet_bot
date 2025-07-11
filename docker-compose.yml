@@ -60,6 +60,7 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - GOOGLE_WEBHOOK_CLIENT_TOKEN=${GOOGLE_WEBHOOK_CLIENT_TOKEN}
       - WEBHOOK_PUBLIC_URL=${WEBHOOK_PUBLIC_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:
       - db
       - minio

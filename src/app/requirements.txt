@@ -23,8 +23,6 @@ pydantic
 
 # Browser automation
 playwright
-selenium
-
 # HTTP client
 httpx
 
@@ -40,3 +38,9 @@ pytest
 google-auth
 google-auth-oauthlib
 google-api-python-client
+
+# Video/Audio processing
+ffmpeg-python
+
+# OpenAI API
+openai

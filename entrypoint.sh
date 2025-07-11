@@ -1,7 +1,8 @@
 #!/bin/sh
 set -e
 
-# Run Alembic migrations
+# Autogenerate and apply Alembic migration (dev only!)
+alembic -c app/alembic.ini revision --autogenerate -m "auto migration" || true
 alembic -c app/alembic.ini upgrade head
 
 # Start the server

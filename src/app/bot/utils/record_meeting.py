@@ -4,11 +4,32 @@ import requests
 from datetime import datetime, timezone
 from app.utilities.minio.generatePresignedURL import generate_upload_url
 from app.db.database import SessionLocal
-from app.db.models import Recording
+from app.db.models import Recording, Summary
+from app.meeting_processing.process_meeting import process_meeting
 
-async def record_meeting(page, meeting_id):
-    video_path = await page.video.path()
+async def record_meeting(video_path, meeting_id):
     print(f"Video saved at: {video_path}")
+
+    transcript, summary = await process_meeting(video_path)
+    print(f"Transcript: {transcript}")
+    print(f"Summary: {summary}")
+
+    db = SessionLocal()
+    try:
+        summary_record = Summary(
+            meeting_id=meeting_id,
+            summary_text=summary,
+            transcript=transcript,
+            generated_at=datetime.now(timezone.utc)
+        )
+        db.add(summary_record)
+        db.commit()
+        print(f"Stored summary and transcript for meeting {meeting_id}")
+    except Exception as e:
+        db.rollback()
+        print(f"Failed to store summary: {e}")
+    finally:
+        db.close()
 
     file_name = f"meeting-{meeting_id}-{uuid.uuid4()}.webm"
     put_signed_url = generate_upload_url(file_name)
@@ -43,6 +64,6 @@ async def record_meeting(page, meeting_id):
         os.remove(video_path)
         print(f"Deleted local video file: {video_path}")
     except Exception as e:
-        print(f"Failed to delete local video file: {e}")
+        print(f"Failed to delete local files: {e}")
 
     return file_name 

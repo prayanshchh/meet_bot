@@ -64,7 +64,7 @@ async def handle_oauth_user(
     channel = await initiate_calendar_watch_db(db=db, user=user, calendar_id="primary", webhook_url=WEBHOOK_PUBLIC_URL, client_token=client_token)
 
     jwt_token = create_access_token(
-        {"sub": str(existing.id), "email": existing.email, "provider": provider}
+        {"sub": str(user.id), "email": user.email, "provider": provider}
     )
 
     set_access_token_cookie(redirect_response, jwt_token)

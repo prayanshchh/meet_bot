@@ -59,7 +59,8 @@ class Summary(Base):
     meeting_id = Column(
         UUID(as_uuid=True), ForeignKey("meetings.id"), nullable=False, unique=True
     )
-    summary_url = Column(String, nullable=False)
+    summary_text = Column(Text, nullable=False)  # Store the actual summary content
+    transcript = Column(Text, nullable=True)     # Store the transcript as well
     generated_at = Column(DateTime, default=datetime.now(timezone.utc))
 
     meeting = relationship("Meeting", back_populates="summary")
