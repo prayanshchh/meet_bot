@@ -21,6 +21,5 @@ def clear_access_token(response: Response):
         httponly=True,
         secure=False,
         samesite="lax",
-        max_age=60 * 60 * 24 * 7,
         path="/",
     )

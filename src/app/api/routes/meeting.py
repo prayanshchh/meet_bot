@@ -20,7 +20,6 @@ class MeetingCreateRequest(BaseModel):
 async def create_meeting(
     data: MeetingCreateRequest = Body(...), user: User = Depends(get_current_user)
 ):
-    print(" I am hit")
     db = SessionLocal()
     meet_id = uuid.uuid4()
     meeting = Meeting(
@@ -58,15 +57,13 @@ def dashboard(
 
     results = []
     for meeting in meetings:
-        recording_url = None
+        print("I am meeting: ", meeting)
         if meeting.recording:
-            recording_url = generate_view_url(meeting.recording.file_name)
-
+            print("I am recording: ", meeting.recording)
         results.append(
             {
                 "meeting_id": str(meeting.id),
                 "meeting_url": meeting.meeting_url,
-                "recording_url": recording_url,
             }
         )
     return results
@@ -78,7 +75,7 @@ def get_meeting(meet_id: str, user: User = Depends(get_current_user)):
 
     meeting = (
         db.query(Meeting)
-        .options(joinedload(Meeting.recording))
+        .options(joinedload(Meeting.recording), joinedload(Meeting.summary))
         .filter_by(id=meet_id, user_id=user.id)
         .first()
     )
@@ -93,7 +90,10 @@ def get_meeting(meet_id: str, user: User = Depends(get_current_user)):
         "recording": {
             "file_name": meeting.recording.file_name if meeting.recording else None,
             "uploaded_at": meeting.recording.uploaded_at if meeting.recording else None,
-        }
-        if meeting.recording
-        else None,
+        } if meeting.recording else None,
+        "summary": {
+            "summary_text": meeting.summary.summary_text,
+            "transcript": meeting.summary.transcript,
+            "generated_at": meeting.summary.generated_at,
+        } if meeting.summary else None,
     }
