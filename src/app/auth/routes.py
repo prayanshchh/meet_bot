@@ -100,7 +100,7 @@ async def auth_google_callback(request: Request):
     )
     user_info = resp.json()
 
-    redirect_response = RedirectResponse("http://127.0.0.1:5173/")
+    redirect_response = RedirectResponse("https://meetbot.prayanshchhablani.com/")
     return await handle_oauth_user(
         email=user_info["email"],
         name=user_info.get("name"),
