@@ -6,12 +6,14 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useNavigate } from 'react-router-dom'; 
 
 interface HeaderProps {
   scrollY: number;
 }
 
 export default function Header({ scrollY }: HeaderProps) {
+const navigate = useNavigate();
 
 const {user, isLoggedIn, logout} = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,7 +65,7 @@ const {user, isLoggedIn, logout} = useAuth();
             {isLandingPage && !isLoggedIn && (
             <>
               <Button
-                onClick={() => { window.location.href = `http://localhost:5173/login` }}
+                  onClick={() => navigate('/login')}
                 variant="outline"
                 className="cursor-pointer hidden md:inline-flex hover:shadow-[0_0_20px_4px] transition-all duration-300 hover:shadow-primary/60"
               >
