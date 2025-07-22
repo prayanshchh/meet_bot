@@ -1,4 +1,3 @@
-import os
 import uuid
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -18,6 +17,7 @@ from googleapiclient.errors import HttpError
 from app.db.database import SessionLocal
 from app.db.models import User, Meeting, CalendarChannel, CalendarSyncToken
 from app.auth.dependencies import get_current_user
+from app.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, WEBHOOK_PUBLIC_URL
 router = APIRouter()
 db = SessionLocal()
 
@@ -25,15 +25,10 @@ SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 TOKEN_FILE = "token.json"
 CREDENTIALS_FILE = "credentials.json"
 
-from dotenv import load_dotenv
+DEFAULT_CALENDAR_ID_TO_WATCH = "primary"
 
-load_dotenv()
-
-WEBHOOK_PUBLIC_URL = os.getenv("WEBHOOK_PUBLIC_URL")
 if not WEBHOOK_PUBLIC_URL:
     raise ValueError("WEBHOOK_PUBLIC_URL environment variable not set!")
-
-DEFAULT_CALENDAR_ID_TO_WATCH = "primary"
 
 def get_google_calendar_service(user: User):
     if not user.access_token or not user.refresh_token or not user.token_uri:
@@ -43,8 +38,8 @@ def get_google_calendar_service(user: User):
         token=user.access_token,
         refresh_token=user.refresh_token,
         token_uri=user.token_uri,
-        client_id=os.getenv("GOOGLE_CLIENT_ID"),
-        client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
         scopes=user.scopes.split(",") if user.scopes else SCOPES,
     )
     if not creds.valid or creds.expired:

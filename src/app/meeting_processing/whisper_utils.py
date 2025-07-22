@@ -1,8 +1,8 @@
-import os
 from openai import OpenAI
+from app.config import OPENAI_API_KEY
 
 async def transcribe_with_whisper_api(audio_path: str, model: str = "gpt-4o-transcribe", prompt: str = None) -> str:
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = OPENAI_API_KEY
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY not set in environment")
 

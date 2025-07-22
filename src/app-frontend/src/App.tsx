@@ -35,9 +35,9 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased">
+    <div className="min-h-screen flex flex-col bg-background text-foreground antialiased">
       <Header scrollY={scrollY} />
-      <main className="overflow-hidden">
+      <main className="flex-1">
         <Routes>
           <Route
             path="/"

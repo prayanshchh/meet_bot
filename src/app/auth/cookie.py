@@ -2,7 +2,6 @@ from fastapi.responses import Response
 
 ACCESS_TOKEN_COOKIE_NAME = "access_token"
 
-
 def set_access_token_cookie(response: Response, token: str):
     response.set_cookie(
         key=ACCESS_TOKEN_COOKIE_NAME,

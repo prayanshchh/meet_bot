@@ -1,9 +1,9 @@
-import os
 from openai import AsyncOpenAI
 from app.meeting_processing.prompts import MEETING_SUMMARY_PROMPT
+from app.config import OPENAI_API_KEY
 
 async def generate_summary_with_openai(transcript: str, model: str = "gpt-4o", prompt: str = None) -> str:
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = OPENAI_API_KEY
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY not set in environment")
 

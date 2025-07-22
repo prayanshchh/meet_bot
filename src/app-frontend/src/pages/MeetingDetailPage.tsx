@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Separator } from '../components/ui/separator';
+import ReactMarkdown from 'react-markdown';
 import { Calendar, Clock, Play, ArrowLeft, FileText, Video, Copy, Check } from 'lucide-react';
 import { Skeleton } from '../components/ui/skeleton';
 import axios from 'axios';
@@ -17,6 +17,7 @@ interface MeetingDetail {
     file_name: string;
     uploaded_at: string;
   } | null;
+  recording_url?: string;
   summary?: {
     summary_text: string;
     transcript: string;
@@ -175,7 +176,7 @@ export default function MeetingDetailPage() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open(getRecordingUrl()!, '_blank')}
+                  onClick={() => window.open(meeting.recording_url, '_blank')}
                 >
                   <Play className="w-4 h-4 mr-1" />
                   Play Recording
@@ -189,9 +190,10 @@ export default function MeetingDetailPage() {
       {/* Summary and Transcript Tabs */}
       {meeting.summary ? (
         <Tabs defaultValue="summary" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="summary">Summary</TabsTrigger>
             <TabsTrigger value="transcript">Transcript</TabsTrigger>
+            <TabsTrigger value="recording">Recording</TabsTrigger>
           </TabsList>
           
           <TabsContent value="summary" className="mt-6">
@@ -218,9 +220,9 @@ export default function MeetingDetailPage() {
               </CardHeader>
               <CardContent>
                 <div className="prose prose-sm max-w-none">
-                  <div className="whitespace-pre-wrap text-sm leading-relaxed">
-                    {meeting.summary.summary_text}
-                  </div>
+                <ReactMarkdown>
+                  {meeting.summary.summary_text}
+                </ReactMarkdown>
                 </div>
               </CardContent>
             </Card>
@@ -254,6 +256,31 @@ export default function MeetingDetailPage() {
                     {meeting.summary.transcript}
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="recording" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Meeting Recording</CardTitle>
+                <CardDescription>
+                  Securely streamed from Google Cloud
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {meeting.recording_url ? (
+                  <video
+                    src={meeting.recording_url}
+                    controls
+                    className="w-full rounded-lg shadow-md max-h-[500px] mx-auto"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <div className="text-muted-foreground text-sm">
+                    Recording is still being processed or not available.
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>

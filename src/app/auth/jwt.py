@@ -1,11 +1,7 @@
 from jose import jwt
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
-import os
+from app.config import SECRET_KEY
 
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHIM = "HS256"
 EXPIRY_MINUTES = 60 * 24 * 7
 

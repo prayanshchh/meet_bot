@@ -4,7 +4,6 @@ from app.auth.jwt import decode_access_token
 from app.db.database import SessionLocal
 from app.db.models import User
 
-
 def get_current_user(request: Request) -> User:
     token = request.cookies.get("access_token")
     if not token:

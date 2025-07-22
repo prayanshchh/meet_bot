@@ -15,7 +15,7 @@ python-jose[cryptography]
 python-dotenv
 
 # AWS S3 / MinIO
-boto3
+google-cloud-storage
 botocore
 
 # Data validation

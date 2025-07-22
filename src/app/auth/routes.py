@@ -6,10 +6,10 @@ from app.auth.cookie import set_access_token_cookie, clear_access_token
 from app.db.database import SessionLocal
 from app.db.models import User
 from app.calendar_webhook import initiate_calendar_watch_db
-import os
 import uuid
 from datetime import datetime, timezone
 from typing import Optional, List
+from app.config import GOOGLE_WEBHOOK_CLIENT_TOKEN, WEBHOOK_PUBLIC_URL
 
 router = APIRouter()
 
@@ -59,8 +59,7 @@ async def handle_oauth_user(
         existing.token_expires_at = token_expires_at
         user = existing
 
-    client_token = os.getenv("GOOGLE_WEBHOOK_CLIENT_TOKEN", "a_strong_secret_token")
-    WEBHOOK_PUBLIC_URL = os.getenv("WEBHOOK_PUBLIC_URL")
+    client_token = GOOGLE_WEBHOOK_CLIENT_TOKEN
     channel = await initiate_calendar_watch_db(db=db, user=user, calendar_id="primary", webhook_url=WEBHOOK_PUBLIC_URL, client_token=client_token)
 
     jwt_token = create_access_token(

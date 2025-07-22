@@ -8,8 +8,8 @@ from app.db.models import User
 from datetime import datetime
 import uuid
 from sqlalchemy.orm import joinedload
-from app.utilities.minio.generatePresignedURL import generate_view_url
 from app.bot.main import main as bot
+from app.utilities.s3.generatePresignedURL import generate_view_url
 
 router = APIRouter()
 
@@ -57,10 +57,8 @@ def dashboard(
 
     results = []
     for meeting in meetings:
-        print("I am meeting: ", meeting)
         if meeting.recording:
-            print("I am recording: ", meeting.recording)
-        results.append(
+            results.append(
             {
                 "meeting_id": str(meeting.id),
                 "meeting_url": meeting.meeting_url,
@@ -83,6 +81,10 @@ def get_meeting(meet_id: str, user: User = Depends(get_current_user)):
     if not meeting:
         raise HTTPException(status_code=404, detail="Meeting not found")
 
+    recording_url = None
+    if meeting.recording and meeting.recording.file_name:
+        recording_url = generate_view_url(meeting.recording.file_name)
+
     return {
         "id": str(meeting.id),
         "meeting_url": meeting.meeting_url,
@@ -91,6 +93,7 @@ def get_meeting(meet_id: str, user: User = Depends(get_current_user)):
             "file_name": meeting.recording.file_name if meeting.recording else None,
             "uploaded_at": meeting.recording.uploaded_at if meeting.recording else None,
         } if meeting.recording else None,
+        "recording_url": recording_url,
         "summary": {
             "summary_text": meeting.summary.summary_text,
             "transcript": meeting.summary.transcript,

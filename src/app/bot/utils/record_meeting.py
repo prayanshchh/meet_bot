@@ -2,7 +2,7 @@ import os
 import uuid
 import requests
 from datetime import datetime, timezone
-from app.utilities.minio.generatePresignedURL import generate_upload_url
+from app.utilities.s3.generatePresignedURL import generate_upload_url
 from app.db.database import SessionLocal
 from app.db.models import Recording, Summary
 from app.meeting_processing.process_meeting import process_meeting
@@ -33,14 +33,21 @@ async def record_meeting(video_path, meeting_id):
 
     file_name = f"meeting-{meeting_id}-{uuid.uuid4()}.webm"
     put_signed_url = generate_upload_url(file_name)
+    print("Signed URL:", put_signed_url)
 
     with open(video_path, "rb") as f:
-        resp = requests.put(put_signed_url, data=f, headers={"Content-Type": "video/webm"})
+        file_data = f.read()
+        headers = {
+            "Content-Type": "video/webm",
+            "Content-Length": str(len(file_data))
+        }
+        resp = requests.put(put_signed_url, data=file_data, headers=headers)
         print("Upload response:", resp.status_code)
+        print("Upload body:", resp.text)
         if resp.status_code == 200:
-            print("Video uploaded to MinIO successfully.")
+            print("Video uploaded to GCS successfully.")
         else:
-            print("Failed to upload video to MinIO.")
+            print("Failed to upload video to GCS.", resp)
             return None
 
     db = SessionLocal()

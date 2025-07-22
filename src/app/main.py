@@ -9,10 +9,8 @@ import os
 app = FastAPI(
     title="MeetBot API",
     description="Endpoints for user auth, meetings and calendar sync",
-    version="1.0.0",
-    docs_url="/swagger",        
-    redoc_url="/redoc-ui",      
-    openapi_url="/api/openapi.json")
+    version="1.0.0"
+    )
 
 app.add_middleware(SessionMiddleware, secret_key=os.getenv("SECRET_KEY"))
 
