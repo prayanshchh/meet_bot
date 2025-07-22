@@ -81,11 +81,6 @@ export default function MeetingDetailPage() {
     }
   };
 
-  const getRecordingUrl = () => {
-    if (!meeting?.recording?.file_name) return null;
-    return `/api/recordings/${meeting.recording.file_name}`;
-  };
-
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
