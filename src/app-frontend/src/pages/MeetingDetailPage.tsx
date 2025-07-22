@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import ReactMarkdown from 'react-markdown';
 import { Calendar, Clock, Play, ArrowLeft, FileText, Video, Copy, Check } from 'lucide-react';
 import { Skeleton } from '../components/ui/skeleton';
-import axios from 'axios';
+import api from '../api';
 
 interface MeetingDetail {
   id: string;
@@ -42,7 +42,7 @@ export default function MeetingDetailPage() {
   const fetchMeetingDetail = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://127.0.0.1:8000/meet/${meetId}`, {
+      const response = await api.get(`/meet/${meetId}`, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',

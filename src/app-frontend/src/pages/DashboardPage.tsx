@@ -5,8 +5,7 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Calendar, Clock, Play, FileText, Plus } from 'lucide-react';
 import { Skeleton } from '../components/ui/skeleton';
-import axios from 'axios';
-
+import api from '../api';
 interface Meeting {
   meeting_id: string;
   meeting_url: string;
@@ -29,7 +28,7 @@ export default function DashboardPage() {
   const fetchMeetings = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://127.0.0.1:8000/dashboard', {
+      const response = await api.get('/dashboard', {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',

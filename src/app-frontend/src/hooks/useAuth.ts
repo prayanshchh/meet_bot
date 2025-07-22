@@ -1,5 +1,5 @@
     import {useState, useEffect} from 'react'
-    import axios from 'axios';
+    import api from '../api';
 
     interface User {
         id: string;
@@ -13,7 +13,8 @@
         const [isLoading, setIsLoading] = useState(true)
 
         useEffect(()=> {
-            axios.get('http://127.0.0.1:8000/me', {withCredentials: true })
+            api
+            .get('/me', { withCredentials: true })
             .then(res=> {
                 setUser(res.data);
             })
@@ -26,7 +27,7 @@
         }, [])
 
         const logout = async () => {
-            await axios.get('http://127.0.0.1:8000/logout', { withCredentials: true });
+            await api.get('/logout', { withCredentials: true });
             setUser(null);
         };
 

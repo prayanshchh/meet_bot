@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Github, LogIn, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import api from '../api';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function LoginPage() {
     const redirectToAuth = (provider: 'google' | 'github') => {
         // Store the intended destination
         sessionStorage.setItem('redirectAfterLogin', '/dashboard');
-        window.location.href = `http://127.0.0.1:8000/auth/login/${provider}`;
+        window.location.href = `${api.defaults.baseURL}auth/login/${provider}`;
     };
 
     // Show loading while checking authentication

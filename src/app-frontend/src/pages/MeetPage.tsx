@@ -3,16 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import axios from 'axios';
-
+import api from '../api';
 export default function MeetPage() {
   const [meetLink, setMeetLink] = useState('');
 
   const handleSubmit = async () => {
     if (!meetLink) return;
     try {
-      await axios.post(
-        'http://127.0.0.1:8000/meet',
+      await api.post(
+        '/meet',
         { meeting_url: meetLink },
         { withCredentials: true }
       );
