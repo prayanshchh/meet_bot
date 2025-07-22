@@ -17,7 +17,7 @@ import './App.css';
 
 function AppContent() {
   const [scrollY, setScrollY] = useState(0);
-  const { user, isLoggedIn, isLoading } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
