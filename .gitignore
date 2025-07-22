@@ -12,7 +12,6 @@ venv/
 *.tmp
 *.webm
 *.mp3
-*.wav
 *.json
 
 .DS_Store
