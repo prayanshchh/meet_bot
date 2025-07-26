@@ -19,6 +19,7 @@ export default function DashboardPage() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showWarning, setShowWarning] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -119,6 +120,21 @@ export default function DashboardPage() {
           </Button>
         </div>
       </div>
+      {showWarning && (
+  <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative mb-6">
+    <strong className="font-semibold">Heads up!</strong>{' '}
+    If you don't end the meeting for everyone in Google Meet, the AI summary will not appear here.
+    <br />
+    Make sure to enable <span className="font-semibold">host controls</span> and click <em>“End call for everyone”</em> when you're done.
+    <button
+      onClick={() => setShowWarning(false)}
+      className="absolute top-2 right-2 text-yellow-700 hover:text-yellow-900"
+      aria-label="Dismiss"
+    >
+      ✕
+    </button>
+  </div>
+)}
 
       {meetings.length === 0 ? (
         <div className="text-center py-12">
