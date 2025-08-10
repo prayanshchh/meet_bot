@@ -69,7 +69,7 @@ class CalendarChannel(Base):
     __tablename__ = "calendar_channels"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True)
-    resource_id = Column(String, nullable=False, unique=True)
+    resource_id = Column(String, nullable=False)
     calendar_id = Column(String, nullable=False)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     client_token = Column(String, nullable=True)
